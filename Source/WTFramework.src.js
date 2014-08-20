@@ -1,7 +1,5 @@
 (function() {
 
-	console.debug(document.currentScript);
-
 	var fwLi, fwRemove, wtFramework = document.getElementById('_wtframework');
 
 	if ( wtFramework ) {
