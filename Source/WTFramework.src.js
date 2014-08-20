@@ -1,27 +1,30 @@
 (function() {
 
+	console.debug(document.currentScript);
+
 	var fwLi, fwRemove, wtFramework = document.getElementById('_wtframework');
 
-	if (wtFramework) {
-		wtFramework.remove();
+	if ( wtFramework ) {
+		wtFramework.parentNode.removeChild(wtFramework);
 		return;
 	}
 
 	function fwRemove() {
-		document.getElementById('_wtframework').remove();
+		var el = document.getElementById('_wtframework');
+		el.parentNode.removeChild(el);
 	}
 
 	function fwItem(verPaths, cdnjsName) {
-		if ( ! (verPaths instanceof Array)) {
+		if ( !(verPaths instanceof Array) ) {
 			verPaths = [ verPaths ];
 		}
-		this.verPaths	= verPaths;
-		this.cdnjsName	= cdnjsName || '';
+		this.verPaths = verPaths;
+		this.cdnjsName = cdnjsName || '';
 	}
 
 	function fwIncludeStyles() {
 		var el = document.getElementById('_wtframeworkcss');
-		if (!el) {
+		if ( !el ) {
 			var c = '';
 
 			c += '#_wtframework {';
@@ -153,7 +156,7 @@
 	var showInfo = function(fwName, fwVersion, fwVerPath) {
 		fwIncludeStyles();
 
-		if (!wtFramework) {
+		if ( !wtFramework ) {
 			wtFramework = document.createElement('ul');
 			wtFramework.id = '_wtframework';
 			wtFramework.onclick = fwRemove;
@@ -167,40 +170,45 @@
 	};
 
 	var findFrameworks = function() {
-		var howMany = 0;
+		var found = 0;
 
-		for (var fwNs in fwList) {
-			if (fwList.hasOwnProperty(fwNs)) {
+		for ( var fwNs in fwList ) {
+			if ( fwList.hasOwnProperty(fwNs) ) {
 				// Loop through all possible version paths
-				for (var j = 0; j < fwList[fwNs].verPaths.length; j++) {
+				for ( var j = 0; j < fwList[fwNs].verPaths.length; j++ ) {
 					var exists = window,
 						verPath = fwList[fwNs].verPaths[j];
 
-					for (var i = 0, idents = verPath.split('.'); i < idents.length; i++) {
+					for ( var i = 0, idents = verPath.split('.'); i < idents.length; i++ ) {
 						exists = exists && exists[idents[i]];
 					}
-					if (exists) {
+
+					if ( exists ) {
+						found++;
+
 						var version = false;
-						if (typeof exists === 'string' && ! exists.match(/^<%=/)) {
+						if ( typeof exists === 'string' && ! exists.match(/^<%=/) ) {
 							version = exists;
-						} else if (typeof exists === 'object' && exists.hasOwnProperty('toString')) {
+						}
+						else if ( typeof exists === 'object' && exists.hasOwnProperty('toString') ) {
 							version = exists.toString();
 						}
-						if (version !== false) {
+
+						if ( version !== false ) {
 							// remove build number ex. "(12345)"
 							version = version.replace(/\s*\(.+\)\s*/, '');
 						}
 
 						showInfo(fwNs, version, verPath);
-						howMany++;
+
 						break;
 					}
 				}
 			}
 		}
 
-		if (!howMany) {
-			showInfo('No known framework detected.');
+		if ( !found ) {
+			showInfo('No framework detected');
 		}
 	};
 
