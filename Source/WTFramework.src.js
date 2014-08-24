@@ -121,6 +121,7 @@
 		'Prototype'                 : new fwItem('Prototype.Version', 'prototype'),
 		'PubNub'                    : new fwItem('PUBNUB', 'pubnub'),
 		'Qooxdoo'                   : new fwItem('qx.$$libraries.qx.version'),
+		'R JS'						: new fwItem('r.$', 'rjs'),
 		'Raphaël'                   : new fwItem('Raphael.version', 'raphael'),
 		'Rico'                      : new fwItem('Rico.Version'),
 		'RightJS'                   : new fwItem('RightJS.version'),
