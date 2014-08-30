@@ -26,7 +26,7 @@
 			var c = '';
 
 			c += '#_wtframework {';
-			c += ' position: fixed; top: 10px; right: 10px; z-index: 234556; margin: 0; padding: 0; ';
+			c += ' position: fixed; top: 10px; right: 10px; z-index: 9999999999; margin: 0; padding: 0; ';
 			c += ' border: solid 2px #666; box-shadow: 0 0 19px #999; ';
 			c += '} \n';
 
